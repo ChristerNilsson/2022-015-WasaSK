@@ -1,49 +1,147 @@
 <script>
-  import SvelteMarkdown from 'svelte-markdown'
-  const source = `
-Lag|Serie|1|2|3|4|5|6|7|Lagledare|Telefon
--|-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|-|-
-Wasa SK II|[DIV II:3](https://member.schack.se/ShowTournamentServlet?id=10430)|[23/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-23)|[13/11](https://storage.googleapis.com/bildbanken2/index.html?query=2022-11-13)|[04/12](https://storage.googleapis.com/bildbanken2/index.html?query=2022-12-04)|[15/01](https://storage.googleapis.com/bildbanken2/index.html?query=2023-01-15)|[05/02](https://storage.googleapis.com/bildbanken2/index.html?query=2023-02-05)|[05/03](https://storage.googleapis.com/bildbanken2/index.html?query=2023-03-05)|[19/03](https://storage.googleapis.com/bildbanken2/index.html?query=2023-03-19)|Birger Wenzel|076 - 123 45 67
-Wasa SK III|[DIV II:3](https://member.schack.se/ShowTournamentServlet?id=10430)|[23/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-23)|[13/11](https://storage.googleapis.com/bildbanken2/index.html?query=2022-11-13)|[04/12](https://storage.googleapis.com/bildbanken2/index.html?query=2022-12-04)|[15/01](https://storage.googleapis.com/bildbanken2/index.html?query=2023-01-15)|[05/02](https://storage.googleapis.com/bildbanken2/index.html?query=2023-02-05)|[05/03](https://storage.googleapis.com/bildbanken2/index.html?query=2023-03-05)|[19/03](https://storage.googleapis.com/bildbanken2/index.html?query=2023-03-19)|Niclas Hedin|073 - 645 34 07
+	import _ from "lodash"
+	import NavigationVertical from "./NavigationVertical.svelte"
+	import NavigationHorisontal from "./NavigationHorisontal.svelte"
+	import Search from "./Search.svelte"
+	import Swimlane from "./Swimlane.svelte"
 
-Lag|Serie|1|2|3|4|5|Lagledare|Telefon
--|-|:-:|:-:|:-:|:-:|:-:|-|-
-Wasa SK|[Elitserien](https://member.schack.se/ShowTournamentServlet?id=10508)|[19/09](https://storage.googleapis.com/bildbanken2/index.html?query=2022-09-19)|[17/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-17)|[14/11](https://storage.googleapis.com/bildbanken2/index.html?query=2022-11-14)|[12/12](https://storage.googleapis.com/bildbanken2/index.html?query=2022-12-12)|[30/01](https://storage.googleapis.com/bildbanken2/index.html?query=2023-01-30)|Birger Wenzel|076 - 123 45 67
-Wasa SK II|[Division 1](https://member.schack.se/ShowTournamentServlet?id=10509)|[26/09](https://storage.googleapis.com/bildbanken2/index.html?query=2022-09-26)|[24/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-24)|[21/11](https://storage.googleapis.com/bildbanken2/index.html?query=2022-11-21)|[19/12](https://storage.googleapis.com/bildbanken2/index.html?query=2022-12-19)|[06/02](https://storage.googleapis.com/bildbanken2/index.html?query=2023-02-06)|Karl-Gustav Sjölund|073 - 645 34 07
-Wasa SK III|[Division 2](https://member.schack.se/ShowTournamentServlet?id=10510)|[03/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-03)|[31/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-31)|[28/11](https://storage.googleapis.com/bildbanken2/index.html?query=2022-11-28)|[16/01](https://storage.googleapis.com/bildbanken2/index.html?query=2023-01-16)|[13/02](https://storage.googleapis.com/bildbanken2/index.html?query=2023-02-13)|Birger Wenzel|076 - 123 45 67
-Wasa SK IV|[Division 3](https://member.schack.se/ShowTournamentServlet?id=10511)|[10/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-10)|[07/11](https://storage.googleapis.com/bildbanken2/index.html?query=2022-11-07)|[05/12](https://storage.googleapis.com/bildbanken2/index.html?query=2022-12-05)|[23/01](https://storage.googleapis.com/bildbanken2/index.html?query=2023-01-23)|[20/02](https://storage.googleapis.com/bildbanken2/index.html?query=2023-02-20)|Birger Wenzel|076 - 123 45 67
-Wasa SK V|[Division 4](https://member.schack.se/ShowTournamentServlet?id=10512)|[10/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-10)|[07/11](https://storage.googleapis.com/bildbanken2/index.html?query=2022-11-07)|[05/12](https://storage.googleapis.com/bildbanken2/index.html?query=2022-12-05)|[23/01](https://storage.googleapis.com/bildbanken2/index.html?query=2023-01-23)|[20/02](https://storage.googleapis.com/bildbanken2/index.html?query=2023-02-20)|Birger Wenzel|076 - 123 45 67
-Wasa SK VI|[Division 5](https://member.schack.se/ShowTournamentServlet?id=10513)|[03/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-03)|[31/10](https://storage.googleapis.com/bildbanken2/index.html?query=2022-10-31)|[28/11](https://storage.googleapis.com/bildbanken2/index.html?query=2022-11-28)|[16/01](https://storage.googleapis.com/bildbanken2/index.html?query=2023-01-16)|[13/02](https://storage.googleapis.com/bildbanken2/index.html?query=2023-02-13)|Birger Wenzel|076 - 123 45 67
+	import site from "./site.json"
 
-### November 2022
-Namn|Ort|Datum|Anmälan|Resultat
--|-|-|-|-
-[Göstas Minne](https://wasask.se/Inbjudan_Gostas_minnesturnering_2022.pdf)|Katarina_Södra_Skola,_Stockholm|2022-11-27||[Resultat](https://member.schack.se/ShowTournamentServlet?id=10769)
-### December 2022
-Namn|Ort|Datum|Anmälan|Resultat
--|-|-|-|-
-[Flickornas JGP-final](https://wasask.se/Flickornas_JGP-final_2022.pdf)|Stockholm|**2022-12-03**||[Resultat](https://member.schack.se/ShowTournamentServlet?id=10885)
-[**JGP-finaler**](https://wasask.se/Inbjudan-JGP-finaler_2022.pdf)|Stockholm|**2022-12-10 .. 2022-12-11**||
-[Pia Cramlings Online-schacktävling](https://wasask.se/Inbjudan_Tjejt%C3%A4vlingen_online_december_2022.pdf)|Lichess.org|2022-12-16||
-[Malmö Open - GP](https://wasask.se/malmoopeninbj2022.pdf)|Malmö|2022-12-16 .. 2022-12-18|[Anmäl dig här](https://member.schack.se/turnering/3069/anmalan)|[Anmälda](https://member.schack.se/ShowTournamentServlet?id=10376)
-[Karlstad Open](https://wasask.se/Karlstad-Open-2022-inbjudan.pdf)|Karlstad|2022-12-27 .. 2022-12-30|[Anmäl dig här](https://member.schack.se/turnering/3288/anmalan)|[Anmälda](https://member.schack.se/ShowTournamentServlet?id=10768)
-[Rilton Amatör](https://wasask.se/Riltonamator28dec22B.pdf)|Stockholm|2022-12-28||
-[Rilton Cup & Rilton ELO](https://wasask.se/Inbjudan_Rilton_Cup_svenska_2022_2023.pdf)|Stockholm|2022-12-27 .. 2023-01-05|[Anmäl dig här](https://chess-results.com/Anmeldung.aspx?lan=6&tnr=661619)|[Anmälda](https://chess-results.com/tnr661619.aspx?lan=6)
-`
+	const log = console.log
+	const range = _.range
+
+	let sokruta = ""
+	let buttons
+
+	let sources = _.keys(site.md)
+	log(sources)
+	let n = sources.length
+
+	let selected = {} // filenames
+
+	$: COLUMNS = _.size(selected) == 1 ? 1 : 2 // 1,2 or 3
+	$: WIDTH = 250
+	const GAP = 1
+
+	let stack = ["Home"]
+	let path = [site.menu]
+
+	const text0 = "text0"
+	const text1 = "text1"
+
+	$: keys = _.keys(_.last(path))
+	$: log(keys)
+	$: log('selected',selected)
+	$: log('COLUMNS',COLUMNS)
+
+	let a = 0
+	let b = 0 
+
+	$: selected = showAll()
+	
+	const round = (x,n) => Math.round(x*Math.pow(10,n))/Math.pow(10,n)
+	const spreadWidth = (share,WIDTH) => Math.floor((WIDTH-2*GAP*(1/share+1))*share) - 2
+
+	function push(key) {
+		const obj = _.isObject(_.last(path)[key])
+		if (obj) {
+			path.push(_.last(path)[key])
+			stack.push(key)
+			path = path
+			stack = stack
+		} else {
+			const url = _.last(path)[key]
+			if (_.startsWith(url,'http')) {
+				window.open(url)
+			} else if (_.endsWith(url,'.md')) {
+				selected = {}
+				selected[url] = 0
+			} else { // .pdf etc
+				window.open('files/' + url)
+			}
+		}
+	}
+
+	function pop() {
+		path.pop()
+		stack.pop()
+		path = path
+		stack = stack
+	}
+
+	function showAll() {
+		COLUMNS = 2
+		selected = {}
+		for (const i in _.range(sources.length)) {
+			selected[sources[i]] = i % COLUMNS
+		}
+	 	log('selected',selected)
+		return selected
+	}
+
+	function noop() {}
+
+	$: w = [innerWidth-WIDTH-10,(innerWidth-WIDTH-20)/2,(innerWidth-WIDTH-30)/3]
+	$: p = (COLUMNS==1) ?  [WIDTH] :
+				 ((COLUMNS==2) ? [WIDTH,WIDTH+w[1]+10] :
+												 [WIDTH,WIDTH+w[2]+10,WIDTH+w[2]+w[2]+20])
+	
 </script>
 
-<SvelteMarkdown {source} />
+<div class="menu">
+	<img src="files/WASA_SK_LOGO_v2.png" title="Wasa SK" alt="" style="padding:20px" on:click={()=> selected = showAll()} on:keydown={noop}>
+	<Search bind:sokruta {text0} {text1} {stack} {WIDTH} {GAP} {spreadWidth} {_} {pop} />
+	<NavigationHorisontal {stack} {WIDTH} />
+	<NavigationVertical {keys} {push} {WIDTH} />
+</div>
+
+{#if COLUMNS==1}
+	<Swimlane col=0 pos={p[0]}px bind:selected {site} width={w[0]}px {showAll} {w} {COLUMNS}/>
+{/if}
+{#if COLUMNS==2}
+	<Swimlane col=0 pos={p[0]}px bind:selected {site} width={w[1]}px {showAll} {w} {COLUMNS} />
+	<Swimlane col=1 pos={p[1]}px bind:selected {site} width={w[1]}px {showAll} {w} {COLUMNS} />
+{/if}
+{#if COLUMNS==3}
+	<Swimlane col=0 pos={p[0]}px bind:selected {site} width={w[2]}px {showAll} {w} {COLUMNS} />
+	<Swimlane col=1 pos={p[1]}px bind:selected {site} width={w[2]}px {showAll} {w} {COLUMNS} />
+	<Swimlane col=2 pos={p[2]}px bind:selected {site} width={w[2]}px {showAll} {w} {COLUMNS} />
+{/if}
+
 
 <style>
-  :global(table) {border-collapse: collapse;}
-  :global(table td) {padding: 5px}
-  :global(table thead) {
-    background-color: #000;
-    color: #ff0;
-    font-size: 14px;
-    border: 1px solid #555;
-  }
-  :global(table tbody td) {border: 1px solid #555;}
-  :global(table tbody tr) {background-color: #eee;}
-  :global(table tbody tr:nth-child(odd)) {background-color: #fff;}
+	.menu {
+		width: 200px;
+		margin-left:1px;
+		margin-top:0px;
+		margin-bottom:0px;
+
+		padding-left:1px;
+		padding-right:1px;
+		padding-top:-1px;
+		padding-bottom:1px;
+	}
+
+	:global(img) {
+		width: 200px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	:global(table) {
+		border-collapse: collapse;
+		margin: 1px auto;
+	}
+	:global(table td) {padding: 1px}
+	:global(table thead) {
+		background-color: #000;
+		color: #ff0;
+		font-size: 13px;
+		border: 1px solid #555;
+	}
+	:global(table tbody td) {border: 1px solid #555;}
+	:global(table tbody tr) {background-color: #eee;}
+	:global(table tbody tr:nth-child(odd)) {background-color: #fff;}
+
 </style>

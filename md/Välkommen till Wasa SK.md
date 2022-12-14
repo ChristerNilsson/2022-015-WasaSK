@@ -1,16 +1,20 @@
-# Välkommen till Wasa SK!
+* Wasa Schackklubb är en av landets mest berömda schackklubbar
+* Under sin 105-åriga historia har Wasa vunnit allsvenska guldmedaljer elva gånger
+* Lag-DM i Stockholm har vi vunnit 36 gånger
+* Wasa är öppen för alla som gillar schack och som vill träffa nya schackvänner
 
-Wasa Schackklubb är en av landets mest berömda schacklubbar.
-Under sin 105-åriga historia har Wasa vunnit allsvenska guldmedaljer elva gånger.
-Lag-DM i Stockholm har vi vunnit 36 gånger.
-Wasa är öppen för alla som gillar schack och som vill träffa nya schackvänner.
+Wasa är en klubb för: 
+* starka spelare och för nybörjare
+* för äldre och för yngre
+* för damer och för herrar
+* för invandrare och för infödda
 
-Wasa är en klubb för starka spelare och för nybörjare, för äldre och för yngre, för
-damer och för herrar, för invandrare och för infödda. Schack är ett förnämligt
-redskap att bygga broar och skapa vänskap.
+Schack är ett förnämligt redskap att bygga broar och skapa vänskap.
 
-I Wasa Schacklubb kan du spela turneringar och fria partier, du kan delta i lag och du
-kan lära mer om schack i Wasauniversitetet och i Wasas Schackskola.
+I Wasa Schackklubb kan du:
+* spela turneringar och fria partier
+* du kan delta i lag
+* du kan lära mer om schack i Wasauniversitetet och i Wasas Schackskola.
 
 Om du funderar på att börja i en schackklubb, är du välkommen att kontakta:
 

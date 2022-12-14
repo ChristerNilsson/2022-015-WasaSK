@@ -5,18 +5,17 @@ marked          https://github.com/markedjs/marked           (6.7M/week)
 
 Idéen är att webansvarig huvudsakligen ska arbeta i [MarkDown](https://en.wikipedia.org/wiki/Markdown).
 
-Om Markdown inte räcker till, kan man skriva HTML i samma fil.
+Om Markdown inte räcker till, kan man skriva HTML i samma fil. Hela filen kan vara HTML om så behövs.
 
-Om man är ännu bekvämare, kan man använda några makros ($X, $Y, osv), jag tagit fram. Dessa är definierade i build.py
-De är dock helt specialiserade för schack och hämtar data från member.schack.se mha build.py
+* Makron finns definierade för att underlätta redigering.
+	* $B = https://storage.googleapis.com/bildbanken2/index.html
+	* $T = https://member.schack.se/ShowTournamentServlet
 
 Arbetsgången blir:
 * Skapa/Modifiera .md-fil
-* Modifiera menu.txt
-* Kör build.py som uppdaterar site.json mha *.md och menu.txt
+* Modifiera menu.tree om behov finns
+* Kör build.py som uppdaterar site.json mha *.md och menu.tree
 * rsync till Google Cloud Storage
-
-md-fil ev med makros => site.json => html
 
 ## GUI
 
@@ -35,53 +34,35 @@ Gui:t består av en trädmeny till vänster samt en yta till höger för en elle
 	* Alternativt skrollar man fram dem mha infinity scroll.
 	* Posterna kan egentligen klassificeras i flera dimensioner men kataloghierarkin kan ej återge det.
 	* Tags behövs inte eftersom allt är sökbart.
+* Använd **TAB** för indentering
+* Observera: kolon + mellanslag skiljer menytext från filnamn.
+* Exempel:
 ```
-{
-	Home: (Visar senaste posterna)
-	Klubben: {
-		Välkommen till Wasa SK : .md
-		Medlemskap i Wasa: .md
-		Styrelsen : .md
-		Rating: url
-	}
-	Inbjudningar: inbjudan.md
-	Juniorer: {
-		Tid och plats:
-		Program: junior.md
-		Föräldrainfo: foraldrainfo.pdf
-		Blankett: blankett.pdf
-	}
-	Seniorer:{
-		Tid och plats: .md
-		Program: senior.md
-		Facebook: url
-		Svenska Lag: url
-		Blanketter: {
-			Nya medlemmar: .pdf
-			Byte av huvudklubb: .pdf
-		}
-	}
-	Bildbanken: bildbanken.se
-	Länkar, länkar och åter länkar
-}
+Välkommen till Wasa SK
+	Välkommen till Wasa SK: 2000-01-01 Välkommen till Wasa SK.md
+	Medlemskap i Wasa: 2000-01-01 Medlemskap i Wasa.md
+	Rating: https://resultat.schack.se/ShowClubRatingServlet?clubid=38481
+Aktuellt
+	Speldatum: 2022-06-30 Speldatum.md
 ```
 
 ## Katalogstruktur
 ```
 Home
-	md
-		2022-10-11A Junior-DM i blixt.md
+	[md]
+		2022-10-11 Junior-DM i blixt.md
 		inbjudningar.md
-	public (endast denna katalog rsyncas till Google Cloud Storage)
-		build
+	[public] (endast denna katalog rsyncas till Google Cloud Storage)
+		[build]
 			bundle.css
 			bundle.js
 			bundle.js.map
 		favicon.png
+		[files]
 		global.css
 		index.html
 		site.json
-	src
+	[src]
 		App.svelte
 		main.js
 	build.py
@@ -92,3 +73,8 @@ Home
 * npm run build
 * build.py
 * rsync
+
+# Markdown
+*   Man kan alltid skriva om till HTML i .md-filen om inget annat hjälper
+*   Påverka styles med .css. (t ex table)
+
